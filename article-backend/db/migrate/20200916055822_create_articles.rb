@@ -1,10 +1,10 @@
 class CreateArticles < ActiveRecord::Migration[6.0]
   def change
     create_table :articles do |t|
-      t.string :content
-      t.string :date
+      t.string :title
+      t.text :content
       t.string :genre
-      t.string :likes
+      t.integer :like_score
 
       t.timestamps
     end

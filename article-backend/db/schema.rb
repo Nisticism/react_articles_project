@@ -13,10 +13,10 @@
 ActiveRecord::Schema.define(version: 2020_09_16_191305) do
 
   create_table "articles", force: :cascade do |t|
-    t.string "content"
-    t.string "date"
+    t.string "title"
+    t.text "content"
     t.string "genre"
-    t.string "likes"
+    t.integer "like_score"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 2020_09_16_191305) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string "content"
-    t.string "likes"
+    t.text "content"
+    t.integer "like_score"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
