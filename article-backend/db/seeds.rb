@@ -9,3 +9,4 @@
 user = User.create(name: "Hans", username: "Nistic", email: "fosterhans@gmail.com", password: "password")
 opinion = Article.create(title: "Title", content: "This is an article", genre: "Opinion", like_score: 0, user_id: user.id)
 science = user.articles.create(title: "Study of science", content: "text", genre: "Scientific", like_score: 0)
+user.comments.create(content: "This is a comment", like_score: 0)
