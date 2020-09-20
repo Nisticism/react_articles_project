@@ -28,8 +28,6 @@ User stories
     		Attributes:  Likes, Content
     		Relationships:  Belongs_to Article, Belongs_to Article
 
-
-
 2020-09-16
 
 - Add seed data, double check models
@@ -39,3 +37,14 @@ User stories
 - add Redux and establish our store
 - start thinking about what the app will look like
 - add a couple components
+
+2020-09-19
+
+- login functionality
+
+2020-09-20
+
+- Add log out functionality
+- sign up functionality
+- think about layout layout
+- routes - adding react router
