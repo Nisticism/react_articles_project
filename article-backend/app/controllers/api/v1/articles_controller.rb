@@ -1,9 +1,9 @@
 class Api::V1::ArticlesController < ApplicationController
     def index
         if logged_in?
-            @articles = current_user.articles
+            @articles = Article.all
     
-            render json: @articles
+            render json: ArticleSerializer.new(@articles).serialized_json
         else
             render json: {
                 error: "You must be logged in to see articles"
@@ -17,4 +17,5 @@ class Api::V1::ArticlesController < ApplicationController
 
     def create
         @article = Article.new(article_params)
+    end
 end

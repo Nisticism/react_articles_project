@@ -1,6 +1,13 @@
 class UserSerializer
   include FastJsonapi::ObjectSerializer
   attributes :name, :email, :username, :articles, :comments
+
+  #  With these relationships, most data will not be returned
+  # has_many :articles, serializer: ArticleSerializer
+  # has_many :comments, serializer: CommentSerializer
+
+  #  IF not using separate serializers for articles or comments, it could be done like this: 
+  #
   attribute :articles do |user|
     articles = []
     user.articles.each do |article|

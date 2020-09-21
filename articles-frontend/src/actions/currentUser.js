@@ -1,3 +1,6 @@
+import { resetLoginForm } from "./loginForm.js";
+import { getArticles } from "./articles.js";
+
 // synchronous action creators
 export const setCurrentUser = (user) => {
   return {
@@ -24,11 +27,13 @@ export const login = (credentials) => {
       body: JSON.stringify(credentials),
     })
       .then((r) => r.json())
-      .then((user) => {
-        if (user.error) {
-          alert(user.error);
+      .then((res) => {
+        if (res.error) {
+          alert(res.error);
         } else {
-          dispatch(setCurrentUser(user));
+          dispatch(setCurrentUser(res.data));
+          dispatch(getArticles());
+          dispatch(resetLoginForm());
         }
       })
       .catch(console.log);
@@ -55,11 +60,12 @@ export const getCurrentUser = () => {
       },
     })
       .then((r) => r.json())
-      .then((user) => {
-        if (user.error) {
-          alert(user.error);
+      .then((res) => {
+        if (res.error) {
+          alert(res.error);
         } else {
-          dispatch(setCurrentUser(user));
+          dispatch(setCurrentUser(res.data));
+          dispatch(getArticles());
         }
       })
       .catch(console.log);

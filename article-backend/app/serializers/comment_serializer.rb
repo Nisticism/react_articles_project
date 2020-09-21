@@ -12,4 +12,5 @@ class CommentSerializer
   end
   attribute :article_title do |comment|
     Article.find_by(id: comment.article_id).title
+  end
 end
