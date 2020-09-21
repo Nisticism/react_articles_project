@@ -48,3 +48,5 @@ User stories
 - sign up functionality
 - think about layout layout
 - routes - adding react router
+- think about bringing in 3rd party css
+- actions/reducers/state/props for articles
