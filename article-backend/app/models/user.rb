@@ -3,4 +3,7 @@ class User < ApplicationRecord
 
     has_many :articles
     has_many :comments
+
+    validates :name, :username, :email, presence: true
+    validates :username, uniqueness: true
 end

@@ -45,8 +45,11 @@ User stories
 2020-09-20
 
 - Add log out functionality
-- sign up functionality
 - think about layout layout
 - routes - adding react router
 - think about bringing in 3rd party css
 - actions/reducers/state/props for articles
+
+2020-09-21
+
+- sign up functionality - form/redux actions

@@ -1,4 +1,5 @@
 import { resetLoginForm } from "./loginForm.js";
+import { resetSignupForm } from "./signupForm.js";
 import { getArticles } from "./articles.js";
 
 // synchronous action creators
@@ -34,6 +35,33 @@ export const login = (credentials) => {
           dispatch(setCurrentUser(res.data));
           dispatch(getArticles());
           dispatch(resetLoginForm());
+        }
+      })
+      .catch(console.log);
+  };
+};
+
+export const signup = (credentials) => {
+  return (dispatch) => {
+    const userInfo = {
+      user: credentials,
+    };
+    return fetch("http://localhost:3001/api/v1/signup", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        if (res.error) {
+          alert(res.error);
+        } else {
+          dispatch(setCurrentUser(res.data));
+          dispatch(getArticles());
+          dispatch(resetSignupForm());
         }
       })
       .catch(console.log);
