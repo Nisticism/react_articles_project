@@ -1,6 +1,6 @@
 import { resetLoginForm } from "./loginForm.js";
 import { resetSignupForm } from "./signupForm.js";
-import { getArticles } from "./articles.js";
+import { getArticles, clearArticles } from "./articles.js";
 
 // synchronous action creators
 export const setCurrentUser = (user) => {
@@ -17,7 +17,7 @@ export const clearCurrentUser = () => {
 };
 
 //  asynchronous action creators
-export const login = (credentials) => {
+export const login = (credentials, history) => {
   return (dispatch) => {
     return fetch("http://localhost:3001/api/v1/login", {
       credentials: "include",
@@ -35,13 +35,14 @@ export const login = (credentials) => {
           dispatch(setCurrentUser(res.data));
           dispatch(getArticles());
           dispatch(resetLoginForm());
+          history.push("/");
         }
       })
       .catch(console.log);
   };
 };
 
-export const signup = (credentials) => {
+export const signup = (credentials, history) => {
   return (dispatch) => {
     const userInfo = {
       user: credentials,
@@ -62,6 +63,7 @@ export const signup = (credentials) => {
           dispatch(setCurrentUser(res.data));
           dispatch(getArticles());
           dispatch(resetSignupForm());
+          history.push("/");
         }
       })
       .catch(console.log);
@@ -71,6 +73,7 @@ export const signup = (credentials) => {
 export const logout = () => {
   return (dispatch) => {
     dispatch(clearCurrentUser());
+    dispatch(clearArticles());
     return fetch("http://localhost:3001/api/v1/logout", {
       credentials: "include",
       method: "DELETE",

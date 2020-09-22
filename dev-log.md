@@ -53,3 +53,7 @@ User stories
 2020-09-21
 
 - sign up functionality - form/redux actions
+
+2020-09-22
+
+- added create article functionality
