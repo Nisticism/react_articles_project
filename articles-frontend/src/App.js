@@ -10,6 +10,7 @@ import NewArticleForm from "./components/NewArticleForm.js";
 import Articles from "./components/Articles.js";
 //import MainContainer from "./components/MainContainer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ArticleCard from "./components/ArticleCard";
 
 class App extends React.Component {
   componentDidMount() {
@@ -17,7 +18,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, articles, user } = this.props;
     return (
       <Router>
         <div className="App">
@@ -30,7 +31,39 @@ class App extends React.Component {
             />
             <Route exact path="/login" component={Login} />
             <Route exact path="/articles" component={Articles} />
+            <Route
+              exact
+              path="/user/articles"
+              component={(props) => {
+                const userArticles = articles.filter(
+                  (article) =>
+                    article.attributes.author.username ===
+                    user.attributes.username
+                );
+                return <Articles userArticles={userArticles} {...props} />;
+              }}
+            />
             <Route exact path="/articles/new" component={NewArticleForm} />
+            <Route
+              exact
+              path="/articles/:id"
+              render={(props) => {
+                const article = articles.find(
+                  (article) => article.id === props.match.params.id
+                );
+                return <ArticleCard article={article} {...props} />;
+              }}
+            />
+            <Route
+              exact
+              path="/articles/:id/edit"
+              render={(props) => {
+                const article = articles.find(
+                  (article) => article.id === props.match.params.id
+                );
+                return <NewArticleForm article={article} {...props} />;
+              }}
+            />
           </Switch>
         </div>
       </Router>
@@ -41,6 +74,8 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     loggedIn: !!state.currentUser,
+    user: state.currentUser,
+    articles: state.articles,
   };
 };
 

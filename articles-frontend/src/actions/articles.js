@@ -1,3 +1,5 @@
+import newArticleForm from "../reducers/newArticleForm";
+import { resetNewArticleForm } from "./newArticleForm";
 //synch actions
 
 export const setArticles = (articles) => {
@@ -64,14 +66,14 @@ export const getMyArticles = () => {
   };
 };
 
-export const createArticle = (articleData) => {
-  console.log("in create!");
+export const createArticle = (articleData, history) => {
   return (dispatch) => {
     const newArticleData = {
       title: articleData.title,
       genre: articleData.genre,
       content: articleData.content,
       user_id: articleData.userId,
+      like_score: 0,
     };
     return fetch("http://localhost:3001/api/v1/articles", {
       credentials: "include",
@@ -82,6 +84,15 @@ export const createArticle = (articleData) => {
       body: JSON.stringify(newArticleData),
     })
       .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          alert(res.error);
+        } else {
+          dispatch(addArticle(res.data));
+          dispatch(resetNewArticleForm());
+          history.push(`/articles/${res.data.id}`);
+        }
+      })
       .then(console.log);
   };
 };

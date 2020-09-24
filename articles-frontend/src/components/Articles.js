@@ -1,11 +1,21 @@
 import React from "react";
 import ArticleCard from "./ArticleCard.js";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Articles = (props) => {
+  console.log(props.userArticles);
+  const articles = props.userArticles ? props.userArticles : props.articles;
+  console.log(props.articles);
+
   const articleCards =
-    props.articles.length > 0
-      ? props.articles.map((a) => <ArticleCard article={a} key={a.id} />)
+    articles.length > 0
+      ? articles.map((a) => (
+          <>
+            <Link to={`/articles/${a.id}`}>{a.attributes.title}</Link>
+            <br />
+          </>
+        ))
       : [];
   return articleCards;
 };

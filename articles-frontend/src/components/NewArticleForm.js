@@ -19,7 +19,10 @@ const NewArticleForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    createArticle({ title: title, genre: genre, content: content, userId });
+    createArticle(
+      { title: title, genre: genre, content: content, userId, history },
+      history
+    );
   };
 
   return (

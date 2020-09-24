@@ -6,7 +6,7 @@ class Api::V1::ArticlesController < ApplicationController
         if logged_in?
             @articles = Article.all
     
-            render json: ArticleSerializer.new(@articles).serialized_json
+            render json: ArticleSerializer.new(@articles)
         else
             render json: {
                 error: "You must be logged in to see articles"
@@ -22,7 +22,7 @@ class Api::V1::ArticlesController < ApplicationController
         @article = Article.new(article_params)
 
         if @article.save
-            render json: @article, status: :created
+            render json: ArticleSerializer.new(@article), status: :created
         else
             error_res = {
                 error: @article.errors.full_messages.to_sentence
@@ -32,11 +32,15 @@ class Api::V1::ArticlesController < ApplicationController
     end
 
     def update
-
+        if @article.update(article_params)
+            render json: @article
+        else
+            render json: @article.errors, status: :unprocessable_entity
+        end
     end
 
     def destroy
-
+        @article.destroy
     end
 
     private
@@ -46,6 +50,6 @@ class Api::V1::ArticlesController < ApplicationController
     end
 
     def article_params
-        params.require(:article).permit(:title, :genre, :content, :user_id)
+        params.require(:article).permit(:title, :genre, :content, :user_id, :like_score)
     end
 end
