@@ -2,15 +2,17 @@ import React from "react";
 import "./App.css";
 import { connect } from "react-redux";
 import { getCurrentUser } from "./actions/currentUser.js";
+import MainContainer from "./components/MainContainer.js";
 import NavBar from "./components/NavBar.js";
 import Login from "./components/Login.js";
 import Signup from "./components/Signup.js";
 import Home from "./components/Home.js";
-import NewArticleForm from "./components/NewArticleForm.js";
 import Articles from "./components/Articles.js";
-//import MainContainer from "./components/MainContainer";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ArticleCard from "./components/ArticleCard";
+import { setFormDataForEdit } from "./actions/articleForm.js";
+import NewArticleFormWrapper from "./components/NewArticleFormWrapper.js";
+import EditArticleFormWrapper from "./components/EditArticleFormWrapper.js";
 
 class App extends React.Component {
   componentDidMount() {
@@ -18,12 +20,17 @@ class App extends React.Component {
   }
 
   render() {
-    const { loggedIn, articles, user } = this.props;
+    const { loggedIn, articles, user, setFormDataForEdit } = this.props;
     return (
       <Router>
         <div className="App">
           {loggedIn ? <NavBar /> : <Home />}
           <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => <MainContainer user={user} />}
+            />
             <Route
               exact
               path="/signup"
@@ -43,7 +50,11 @@ class App extends React.Component {
                 return <Articles userArticles={userArticles} {...props} />;
               }}
             />
-            <Route exact path="/articles/new" component={NewArticleForm} />
+            <Route
+              exact
+              path="/articles/new"
+              component={NewArticleFormWrapper}
+            />
             <Route
               exact
               path="/articles/:id"
@@ -51,7 +62,14 @@ class App extends React.Component {
                 const article = articles.find(
                   (article) => article.id === props.match.params.id
                 );
-                return <ArticleCard article={article} {...props} />;
+                return (
+                  <ArticleCard
+                    article={article}
+                    user={user}
+                    history={props.history}
+                    {...props}
+                  />
+                );
               }}
             />
             <Route
@@ -61,7 +79,14 @@ class App extends React.Component {
                 const article = articles.find(
                   (article) => article.id === props.match.params.id
                 );
-                return <NewArticleForm article={article} {...props} />;
+                article && setFormDataForEdit(article);
+                return (
+                  <EditArticleFormWrapper
+                    article={article}
+                    user={user}
+                    {...props}
+                  />
+                );
               }}
             />
           </Switch>
@@ -79,4 +104,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getCurrentUser })(App);
+export default connect(mapStateToProps, { getCurrentUser, setFormDataForEdit })(
+  App
+);

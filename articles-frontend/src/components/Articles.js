@@ -1,5 +1,4 @@
 import React from "react";
-import ArticleCard from "./ArticleCard.js";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -11,10 +10,9 @@ const Articles = (props) => {
   const articleCards =
     articles.length > 0
       ? articles.map((a) => (
-          <>
+          <div key={a.id} className="ArticleListItem">
             <Link to={`/articles/${a.id}`}>{a.attributes.title}</Link>
-            <br />
-          </>
+          </div>
         ))
       : [];
   return articleCards;

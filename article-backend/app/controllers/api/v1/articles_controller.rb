@@ -19,7 +19,7 @@ class Api::V1::ArticlesController < ApplicationController
     end
 
     def create
-        @article = Article.new(article_params)
+        @article = current_user.articles.build(article_params)
 
         if @article.save
             render json: ArticleSerializer.new(@article), status: :created
@@ -27,20 +27,30 @@ class Api::V1::ArticlesController < ApplicationController
             error_res = {
                 error: @article.errors.full_messages.to_sentence
             }
-            render json: error_res, status: unprocessable_entity
+            render json: error_res, status: :unprocessable_entity
         end
     end
 
     def update
         if @article.update(article_params)
-            render json: @article
+            render json: ArticleSerializer.new(@article), status: :ok
         else
-            render json: @article.errors, status: :unprocessable_entity
+            error_res = {
+                error: @article.errors.full_messages.to_sentence
+            }
+            render json: error_res, status: :unprocessable_entity
         end
     end
 
     def destroy
-        @article.destroy
+        if @article.destroy
+            render json: { data: "Article deleted" }, status: :ok
+        else
+            error_res = {
+                error: "Article not found"
+            }
+            render json: error_res, status: :unprocessable_entity
+        end
     end
 
     private
@@ -50,6 +60,6 @@ class Api::V1::ArticlesController < ApplicationController
     end
 
     def article_params
-        params.require(:article).permit(:title, :genre, :content, :user_id, :like_score)
+        params.require(:article).permit(:title, :genre, :content, :like_score)
     end
 end

@@ -1,7 +1,7 @@
 class CommentSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :content, :article_title, :user, :like_score, :date
-  attribute :user do |comment|
+  attributes :content, :article_title, :author, :like_score, :date
+  attribute :author do |comment|
     {
       name: User.find_by(id: comment.user_id).name,
       username: User.find_by(id: comment.user_id).username 

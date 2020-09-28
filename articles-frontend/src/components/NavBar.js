@@ -6,20 +6,32 @@ import Logout from "./Logout";
 const NavBar = ({ currentUser, loggedIn }) => {
   return (
     <div className="NavBar">
-      <NavLink exact activeClassName="active" to="/user/articles">
-        My Articles |{" "}
-      </NavLink>
-      <NavLink exact activeClassName="active" to="/articles">
-        All Articles |{" "}
-      </NavLink>
-      <NavLink exact activeClassName="active" to="/articles/new">
-        New Articles |{" "}
-      </NavLink>
+      <div className="NavItem">
+        <NavLink exact activeClassName="active" to="/user/articles">
+          My Articles
+        </NavLink>
+      </div>
+      <div className="NavItem">
+        <NavLink exact activeClassName="active" to="/articles">
+          All Articles
+        </NavLink>
+      </div>
+      <div className="NavItem">
+        <NavLink exact activeClassName="active" to="/articles/new">
+          New Article
+        </NavLink>
+      </div>
+
       {loggedIn ? (
-        <>
-          <p>Logged in as {currentUser.attributes.username}</p>
+        <div className="NavItem">
+          <NavLink exact activeClassName="active" to="/">
+            Home
+          </NavLink>
           <Logout />
-        </>
+          <p className="SmallText">
+            (Logged in as {currentUser.attributes.username})
+          </p>
+        </div>
       ) : null}
     </div>
   );

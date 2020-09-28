@@ -1,5 +1,4 @@
-import newArticleForm from "../reducers/newArticleForm";
-import { resetNewArticleForm } from "./newArticleForm";
+import { resetArticleForm } from "./articleForm";
 //synch actions
 
 export const setArticles = (articles) => {
@@ -11,7 +10,7 @@ export const setArticles = (articles) => {
 
 export const clearArticles = () => {
   return {
-    type: "CLEAR_TRIPS",
+    type: "CLEAR_ARTICLES",
   };
 };
 
@@ -22,32 +21,25 @@ export const addArticle = (article) => {
   };
 };
 
+export const deleteArticleSuccess = (articleId) => {
+  return {
+    type: "DELETE_ARTICLE",
+    articleId,
+  };
+};
+
+export const updateArticleSuccess = (article) => {
+  return {
+    type: "UPDATE_ARTICLE",
+    article,
+  };
+};
+
 //  async actions
 
 export const getArticles = () => {
   return (dispatch) => {
     return fetch("http://localhost:3001/api/v1/articles", {
-      credentials: "include",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((r) => r.json())
-      .then((res) => {
-        if (res.error) {
-          alert(res.error);
-        } else {
-          dispatch(setArticles(res.data));
-        }
-      })
-      .catch(console.log);
-  };
-};
-
-export const getMyArticles = () => {
-  return (dispatch) => {
-    return fetch("http://localhost:3001/api/v1/articles/my_articles", {
       credentials: "include",
       method: "GET",
       headers: {
@@ -89,8 +81,61 @@ export const createArticle = (articleData, history) => {
           alert(res.error);
         } else {
           dispatch(addArticle(res.data));
-          dispatch(resetNewArticleForm());
+          dispatch(resetArticleForm());
           history.push(`/articles/${res.data.id}`);
+        }
+      })
+      .then(console.log);
+  };
+};
+
+export const updateArticle = (articleData, history) => {
+  return (dispatch) => {
+    const newArticleData = {
+      title: articleData.title,
+      genre: articleData.genre,
+      content: articleData.content,
+    };
+    return fetch(
+      `http://localhost:3001/api/v1/articles/${articleData.articleId}`,
+      {
+        credentials: "include",
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newArticleData),
+      }
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          alert(res.error);
+        } else {
+          dispatch(updateArticleSuccess(res.data));
+          history.push(`/articles/${res.data.id}`);
+        }
+      })
+      .then(console.log);
+  };
+};
+
+export const deleteArticle = (articleId, history) => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3001/api/v1/articles/${articleId}`, {
+      credentials: "include",
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          alert(res.error);
+        } else {
+          dispatch(deleteArticleSuccess(articleId));
+          history.push(`/articles`);
         }
       })
       .then(console.log);

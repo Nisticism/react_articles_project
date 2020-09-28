@@ -13,7 +13,8 @@ class ArticleSerializer
   attribute :comments do |article|
     comments = []
     article.comments.each do |comment|
-      comment_json = {article_title: article.title, content: comment.content, like_score: comment.like_score, date: comment.created_at.to_s[0,10]}
+      username = User.find_by(id: comment.user_id).username
+      comment_json = {id: comment.id, article_title: article.title, username: username, content: comment.content, like_score: comment.like_score, date: comment.created_at.to_s[0,10]}
       comments << comment_json
     end
     comments

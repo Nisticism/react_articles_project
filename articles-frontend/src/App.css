@@ -40,8 +40,45 @@
 .NavBar {
   display: flex;
   flex-direction: row;
+  margin: 1% 30%;
+  padding: 10 20;
+  justify-content: space-between;
+  background-color: gray;
+  padding: 1%;
+  border-radius: 20px;
 }
 
 a.active {
   color: green;
+}
+
+.ArticleCard {
+  border: solid lightblue;
+  border-width: 1rem;
+  border-radius: 5px;
+  margin: 2% 15%;
+  padding: 1%;
+}
+
+.ArticleListItem {
+  border: solid darkgray;
+  border-width: 2px;
+  background-color: lightblue;
+  border-radius: 5px;
+  margin: 2% 15%;
+  padding: 1%;
+}
+
+.NavItem {
+  background-color: lightgray;
+  padding: 1%;
+  border-radius: 10px;
+}
+
+.deleteEdit {
+  flex-direction: row;
+}
+
+.SmallText {
+  font-size: 10px;
 }
