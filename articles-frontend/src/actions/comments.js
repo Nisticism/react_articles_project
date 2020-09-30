@@ -21,10 +21,10 @@ export const addComment = (comment) => {
   };
 };
 
-export const deleteCommentSuccess = (articleId, commentId) => {
+export const deleteCommentSuccess = (commentId) => {
+  console.log("in delete comment action");
   return {
     type: "DELETE_COMMENT",
-    articleId,
     commentId,
   };
 };
@@ -35,6 +35,12 @@ export const updateCommentSuccess = (comment) => {
     comment,
   };
 };
+
+// export const setCommentsState = (comments) => {
+//   return {
+//     type,
+//   };
+// };
 
 //  async actions
 
@@ -79,10 +85,18 @@ export const createComment = (commentData, history) => {
         if (res.error) {
           alert(res.error);
         } else {
-          dispatch(addComment(res.data));
+          let commentFormat = {
+            id: parseInt(res.data.id),
+            article_title: res.data.attributes.article_title,
+            username: res.data.attributes.author.username,
+            content: res.data.attributes.content,
+            like_score: 0,
+            date: res.data.attributes.date,
+          };
+          dispatch(addComment(commentFormat));
           dispatch(resetCommentForm());
           history.push(`/articles/${commentData.articleId}`);
-          window.location.reload();
+          //window.location.reload();
         }
       })
       .then(console.log);
@@ -134,9 +148,9 @@ export const deleteComment = (articleId, commentId, history) => {
         if (res.error) {
           alert(res.error);
         } else {
-          dispatch(deleteCommentSuccess(articleId, commentId));
+          dispatch(deleteCommentSuccess(commentId));
           history.push(`/articles/${articleId}`);
-          window.location.reload();
+          //window.location.reload();
         }
       })
       .then(console.log);

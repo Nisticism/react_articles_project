@@ -27,10 +27,10 @@ const NavBar = ({ currentUser, loggedIn }) => {
           <NavLink exact activeClassName="active" to="/">
             Home
           </NavLink>
-          <Logout />
           <p className="SmallText">
             (Logged in as {currentUser.attributes.username})
           </p>
+          <Logout />
         </div>
       ) : null}
     </div>
