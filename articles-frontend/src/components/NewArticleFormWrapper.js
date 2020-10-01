@@ -15,7 +15,13 @@ const NewArticleFormWrapper = ({ history, createArticle }) => {
       history
     );
   };
-  return <ArticleForm history={history} handleSubmit={handleSubmit} />;
+  return (
+    <ArticleForm
+      articleFormTitle={"New Article"}
+      history={history}
+      handleSubmit={handleSubmit}
+    />
+  );
 };
 
 export default connect(null, { createArticle })(NewArticleFormWrapper);

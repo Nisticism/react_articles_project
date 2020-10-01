@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateArticleForm } from "../actions/articleForm.js";
-import { deleteArticle } from "../actions/articles.js";
+import { deleteArticle, deleteArticleComments } from "../actions/articles.js";
+import { deleteComment } from "../actions/comments.js";
 
 const ArticleForm = ({
   title,
@@ -15,6 +16,9 @@ const ArticleForm = ({
   user,
   article,
   deleteArticle,
+  articleFormTitle,
+  deleteComment,
+  deleteArticleComments,
 }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,6 +26,11 @@ const ArticleForm = ({
   };
   return (
     <div className="articleForm">
+      <div id="bold">
+        {articleFormTitle}:
+        <br />
+        <br />
+      </div>
       {(user &&
         article &&
         user.attributes.username === article.attributes.author.username) ||
@@ -65,7 +74,15 @@ const ArticleForm = ({
               <br />
               <button
                 style={{ color: "red" }}
-                onClick={() => deleteArticle(article.id, history)}
+                onClick={() => {
+                  // if (article.attributes.comments.length > 0) {
+                  //   article.attributes.comments.forEach((comment) =>
+                  //     deleteComment(comment.id)
+                  //   );
+                  //   deleteArticleComments(article);
+                  // }
+                  deleteArticle(article.id, history);
+                }}
               >
                 Delete Article
               </button>
@@ -90,6 +107,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { updateArticleForm, deleteArticle })(
-  ArticleForm
-);
+export default connect(mapStateToProps, {
+  updateArticleForm,
+  deleteArticle,
+  deleteComment,
+  deleteArticleComments,
+})(ArticleForm);

@@ -37,7 +37,11 @@ class App extends React.Component {
               render={(props) => <Signup history={props.history} />}
             />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/articles" component={Articles} />
+            <Route
+              exact
+              path="/articles"
+              render={(props) => <Articles articlesTitle={"Articles"} />}
+            />
             <Route
               exact
               path="/user/articles"
@@ -47,7 +51,13 @@ class App extends React.Component {
                     article.attributes.author.username ===
                     user.attributes.username
                 );
-                return <Articles userArticles={userArticles} {...props} />;
+                return (
+                  <Articles
+                    userArticles={userArticles}
+                    articlesTitle={"My Articles"}
+                    {...props}
+                  />
+                );
               }}
             />
             <Route

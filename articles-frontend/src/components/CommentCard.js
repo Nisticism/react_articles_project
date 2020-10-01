@@ -5,7 +5,6 @@ import { deleteComment } from "../actions/comments.js";
 const CommentCard = ({ comment, user, deleteComment, history, articleId }) => {
   return comment ? (
     <div className="CommentCard">
-      <br />
       <p>
         User: <i>{comment.username}</i>
       </p>
@@ -20,7 +19,7 @@ const CommentCard = ({ comment, user, deleteComment, history, articleId }) => {
             <button
               style={{ color: "red" }}
               onClick={() => {
-                deleteComment(articleId, comment.id, history);
+                deleteComment(comment.id);
               }}
             >
               Delete Comment

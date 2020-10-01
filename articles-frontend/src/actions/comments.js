@@ -1,5 +1,4 @@
 import { resetCommentForm } from "./commentForm";
-//synch actions
 
 export const setComments = (comments) => {
   return {
@@ -36,13 +35,7 @@ export const updateCommentSuccess = (comment) => {
   };
 };
 
-// export const setCommentsState = (comments) => {
-//   return {
-//     type,
-//   };
-// };
-
-//  async actions
+//  async
 
 export const getComments = () => {
   return (dispatch) => {
@@ -85,15 +78,8 @@ export const createComment = (commentData, history) => {
         if (res.error) {
           alert(res.error);
         } else {
-          let commentFormat = {
-            id: parseInt(res.data.id),
-            article_title: res.data.attributes.article_title,
-            username: res.data.attributes.author.username,
-            content: res.data.attributes.content,
-            like_score: 0,
-            date: res.data.attributes.date,
-          };
-          dispatch(addComment(commentFormat));
+          console.log(res.data.attributes);
+          dispatch(addComment(res.data.attributes));
           dispatch(resetCommentForm());
           history.push(`/articles/${commentData.articleId}`);
           //window.location.reload();
@@ -134,8 +120,10 @@ export const updateComment = (commentData, history) => {
   };
 };
 
-export const deleteComment = (articleId, commentId, history) => {
+export const deleteComment = (commentId) => {
+  console.log("in delete comment ");
   return (dispatch) => {
+    console.log("return dispatch");
     return fetch(`http://localhost:3001/api/v1/comments/${commentId}`, {
       credentials: "include",
       method: "DELETE",
@@ -149,8 +137,6 @@ export const deleteComment = (articleId, commentId, history) => {
           alert(res.error);
         } else {
           dispatch(deleteCommentSuccess(commentId));
-          history.push(`/articles/${articleId}`);
-          //window.location.reload();
         }
       })
       .then(console.log);

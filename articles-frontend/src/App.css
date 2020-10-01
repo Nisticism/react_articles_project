@@ -38,18 +38,17 @@
 }
 
 .NavBar {
-  display: flex;
-  flex-direction: row;
-  margin: 1% 30%;
-  padding: 10 20;
-  justify-content: space-between;
-  background-color: gray;
+  display: inline-flex;
+  justify-content: center;
+  background-color: lightblue;
   padding: 1%;
-  border-radius: 20px;
+  border: solid darkgray;
+  border-radius: 2px;
+  min-width: 35%;
 }
 
 a.active {
-  color: green;
+  color: darkgreen;
 }
 
 .ArticleCard {
@@ -61,18 +60,17 @@ a.active {
 }
 
 .ArticleListItem {
-  border: solid darkgray;
-  border-width: 2px;
-  background-color: lightblue;
-  border-radius: 5px;
-  margin: 2% 15%;
+  margin: 0% 15%;
   padding: 1%;
 }
 
 .NavItem {
-  background-color: lightgray;
+  background-color: white;
   padding: 1%;
-  border-radius: 10px;
+  margin: 0% 2%;
+  border-radius: 4px;
+  min-width: 10%;
+  max-width: 20%;
 }
 
 .deleteEdit {
@@ -81,4 +79,27 @@ a.active {
 
 .SmallText {
   font-size: 10px;
+}
+
+.CommentCard {
+  border: solid darkgray;
+  padding: 10px;
+  margin: 1% 30%;
+}
+
+div#genreAuthor {
+  font-size: 14px;
+}
+
+.index {
+  float: left;
+  font-weight: bold;
+}
+
+.articleForm {
+  margin-top: 2%;
+}
+
+div#bold {
+  font-weight: bold;
 }

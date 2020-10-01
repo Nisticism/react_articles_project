@@ -16,7 +16,17 @@ export default (state = initialState, action) => {
       return state.filter((article) =>
         article.id === action.articleId ? false : true
       );
+    case "DELETE_ARTICLE_COMMENTS":
+      return state.filter((article) =>
+        article.id === action.articleId ? deleteArticleComments(article) : true
+      );
     default:
       return state;
   }
 };
+
+function deleteArticleComments(article) {
+  let new_article = Object.assign(article);
+  new_article.attributes.comments = [];
+  return new_article;
+}

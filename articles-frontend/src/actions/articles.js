@@ -35,6 +35,13 @@ export const updateArticleSuccess = (article) => {
   };
 };
 
+export const deleteArticleComments = (article) => {
+  return {
+    type: "DELETE_ARTICLE_COMMENTS",
+    article,
+  };
+};
+
 //  async actions
 
 export const getArticles = () => {
@@ -135,7 +142,7 @@ export const deleteArticle = (articleId, history) => {
           alert(res.error);
         } else {
           dispatch(deleteArticleSuccess(articleId));
-          history.push(`/articles`);
+          history.push(`/user/articles`);
         }
       })
       .then(console.log);

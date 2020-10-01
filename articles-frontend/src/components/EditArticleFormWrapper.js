@@ -38,6 +38,7 @@ class EditArticleFormWrapper extends React.Component {
           history={this.props.history}
           user={this.props.user}
           article={this.props.article}
+          articleFormTitle={"Edit Article"}
           editMode
           handleSubmit={this.handleSubmit}
         />

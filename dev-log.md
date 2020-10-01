@@ -57,3 +57,7 @@ User stories
 2020-09-22
 
 - added create article functionality
+
+TO DO:
+
+- Fix comment serializer

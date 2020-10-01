@@ -3,19 +3,32 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Articles = (props) => {
-  console.log(props.userArticles);
   const articles = props.userArticles ? props.userArticles : props.articles;
-  console.log(props.articles);
 
   const articleCards =
-    articles.length > 0
-      ? articles.map((a) => (
-          <div key={a.id} className="ArticleListItem">
-            <Link to={`/articles/${a.id}`}>{a.attributes.title}</Link>
+    articles.length > 0 ? (
+      articles.map((a, index) => (
+        <div key={a.id} className="ArticleListItem">
+          <hr />
+          <div className="index">{index + 1}</div>
+          <Link to={`/articles/${a.id}`}>{a.attributes.title}</Link>
+          <div id="genreAuthor">
+            Genre: {a.attributes.genre} | Author: {a.attributes.author.username}
           </div>
-        ))
-      : [];
-  return articleCards;
+        </div>
+      ))
+    ) : (
+      <div className="emptyArticlesList">
+        <br />
+        {[]}
+      </div>
+    );
+  return (
+    <div>
+      <h3>{props.articlesTitle}</h3>
+      {articleCards}
+    </div>
+  );
 };
 
 const mapStateToProps = ({ articles }) => {
