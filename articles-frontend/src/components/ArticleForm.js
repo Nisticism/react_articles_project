@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateArticleForm } from "../actions/articleForm.js";
-import { deleteArticle, deleteArticleComments } from "../actions/articles.js";
-import { deleteComment } from "../actions/comments.js";
+import { deleteArticle } from "../actions/articles.js";
 
 const ArticleForm = ({
   title,
@@ -10,15 +9,12 @@ const ArticleForm = ({
   content,
   history,
   updateArticleForm,
-  userId,
   handleSubmit,
   editMode,
   user,
   article,
   deleteArticle,
   articleFormTitle,
-  deleteComment,
-  deleteArticleComments,
 }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -75,12 +71,6 @@ const ArticleForm = ({
               <button
                 style={{ color: "red" }}
                 onClick={() => {
-                  // if (article.attributes.comments.length > 0) {
-                  //   article.attributes.comments.forEach((comment) =>
-                  //     deleteComment(comment.id)
-                  //   );
-                  //   deleteArticleComments(article);
-                  // }
                   deleteArticle(article.id, history);
                 }}
               >
@@ -110,6 +100,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   updateArticleForm,
   deleteArticle,
-  deleteComment,
-  deleteArticleComments,
 })(ArticleForm);

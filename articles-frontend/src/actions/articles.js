@@ -35,10 +35,11 @@ export const updateArticleSuccess = (article) => {
   };
 };
 
-export const deleteArticleComments = (article) => {
+export const updateArticleComments = (articleId, comments) => {
   return {
-    type: "DELETE_ARTICLE_COMMENTS",
-    article,
+    type: "UPDATE_ARTICLE_COMMENTS",
+    articleId,
+    comments,
   };
 };
 

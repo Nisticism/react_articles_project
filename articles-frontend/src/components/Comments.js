@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import CommentCard from "./CommentCard.js";
 import { setComments } from "../actions/comments.js";
+import { updateArticleComments } from "../actions/articles.js";
 
 class Comments extends React.Component {
-  //= ({ user, article, history }) => {
-
   componentDidMount() {
     this.props.article.attributes.comments &&
       this.props.setComments(this.props.article.attributes.comments);
@@ -14,12 +13,14 @@ class Comments extends React.Component {
   componentDidUpdate(prevProps) {
     this.props.comments &&
       prevProps.comments !== this.props.comments &&
+      this.props.updateArticleComments(
+        this.props.article.id,
+        this.props.comments
+      ) &&
       this.forceUpdate();
   }
 
-  componentWillUnmount() {
-    //this.props.resetArticleForm();
-  }
+  componentWillUnmount() {}
 
   render() {
     let allProps = this.props;
@@ -50,4 +51,6 @@ const mapStateToProps = ({ comments }) => {
   };
 };
 
-export default connect(mapStateToProps, { setComments })(Comments);
+export default connect(mapStateToProps, { setComments, updateArticleComments })(
+  Comments
+);

@@ -1,5 +1,4 @@
 import React from "react";
-import Articles from "./Articles.js";
 
 const MainContainer = ({ user }) => {
   return (

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { updateCommentForm } from "../actions/commentForm.js";
 import { updateComment } from "../actions/comments";
 import { createComment } from "../actions/comments";
-import { setFormDataForEdit, resetCommentForm } from "../actions/commentForm";
 
 const CommentForm = ({
   content,
