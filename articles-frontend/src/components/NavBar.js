@@ -8,28 +8,35 @@ const NavBar = ({ currentUser, loggedIn }) => {
     <div className="NavBar">
       <div className="NavItem">
         <NavLink exact activeClassName="active" to="/user/articles">
-          My Articles
+          <button type="button" className="NavButton">
+                My Articles
+          </button>
         </NavLink>
       </div>
       <div className="NavItem">
         <NavLink exact activeClassName="active" to="/articles">
-          All Articles
+          <button type="button" className="NavButton">
+                All Articles
+          </button>
         </NavLink>
       </div>
       <div className="NavItem">
         <NavLink exact activeClassName="active" to="/articles/new">
-          New Article
+          <button type="button" className="NavButton">
+                New Article
+          </button>
+        </NavLink>
+      </div>
+      <div className="NavItem">
+        <NavLink exact activeClassName="active" to="/">
+          <button type="button" className="NavButton">
+                Home
+          </button>
         </NavLink>
       </div>
 
       {loggedIn ? (
         <div className="NavItem">
-          <NavLink exact activeClassName="active" to="/">
-            Home
-          </NavLink>
-          <p className="SmallText">
-            (Logged in as {currentUser.attributes.username})
-          </p>
           <Logout />
         </div>
       ) : null}

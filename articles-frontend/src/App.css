@@ -70,7 +70,7 @@ a.active {
   padding: 1%;
   margin: 0% 2%;
   border-radius: 4px;
-  min-width: 10%;
+  min-width: 15%;
   max-width: 20%;
 }
 
@@ -104,4 +104,20 @@ div#genreAuthor {
 
 div#bold {
   font-weight: bold;
+}
+
+.NavButton {
+  width: 100%;
+  height: 40px;
+  background-color: lightcyan;
+}
+
+.LogoutButton {
+  height: 40px;
+  background-color: lightcyan;
+}
+
+.AppHR {
+  width: 95%;
+  border-top: solid 2px darkgray;
 }

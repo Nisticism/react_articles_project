@@ -100,9 +100,21 @@ class App extends React.Component {
               }}
             />
           </Switch>
+
+          {loggedIn ? (
+            <div>
+            <br/>
+            <br/>
+            <hr className="AppHR"/>
+        <p className="SmallText">
+          (Logged in as {user.attributes.username})
+        </p>
+        </div>) : null}
         </div>
       </Router>
+      
     );
+
   }
 }
 
