@@ -2,16 +2,83 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Articles = (props) => {
-  const articles = props.userArticles ? props.userArticles : props.articles;
+class Articles extends React.Component {
 
-  const articleCards =
+  constructor(props) {
+    super()
+    console.log(props)
+    
+    this.state = {
+      likeScore: [],
+      indices: []
+    }
+
+    this.handleLikeClick = this.handleLikeClick.bind(this)
+  }
+
+  handleLikeClick(event) {
+    console.log(event.target.id)
+    const likeList = [...this.state.likeScore]
+    let newIndex;
+    if (likeList[event.target.id] === 1) {
+      newIndex = 0
+    } else {
+      newIndex = 1
+    }
+    likeList[event.target.id] = newIndex
+
+    this.setState({
+      likeScore: likeList
+    });
+  }
+
+  componentDidMount() {
+  }
+
+  // setInitialLikeScore(articles) {
+  //   console.log(articles)
+  //   console.log("in state return setter")
+  //   if (articles.length > 0) {
+  //     let articlesLength = articles.length
+  //     console.log(articlesLength)
+  //     let articlesArray = []
+  //     for (let i = 0; i < articlesLength; i ++) {
+  //       articlesArray.push(0)
+  //     }
+
+  //     return {
+  //       likeScore: articlesArray
+  //     }
+      
+  //   } else {
+  //     return null
+  //   }
+  // }
+
+  getIndexFromArticle() {
+    console.log()
+    console.log(document.parentNode)
+    //return parseInt(document.parentElement.getElementsByClassName("index").innerHTML)
+  }
+
+  render() {
+
+    const articles = this.props.userArticles ? this.props.userArticles : this.props.articles;
+
+    if (articles.length > 0) {
+    console.log(this.state)
+    //this.setState((articles) => this.setInitialLikeScore(articles));
+    //console.log(this.state)
+    const articleCards =
     articles.length > 0 ? (
       articles.map((a, index) => (
         <div key={a.id} className="ArticleListItem">
           <hr />
-          <div className="index">{index + 1}</div>
+          <div id="indexer" className="index">{index + 1}</div>
           <Link to={`/articles/${a.id}`}>{a.attributes.title}</Link>
+          <br/>
+          <button onClick={(event) => this.handleLikeClick(event)} className="LikeButton" id={index}>Like</button>
+          <p>Score: {this.state.likeScore[index] ? this.state.likeScore[index] : 0}</p>
           <div id="genreAuthor">
             Genre: {a.attributes.genre} | Author: {a.attributes.author.username}
           </div>
@@ -23,12 +90,20 @@ const Articles = (props) => {
         {[]}
       </div>
     );
-  return (
-    <div>
-      <h3>{props.articlesTitle}</h3>
-      {articleCards}
-    </div>
-  );
+
+    return (
+      <div>
+        <h3>{this.props.articlesTitle}</h3>
+        {articleCards}
+      </div>
+    );
+    } else {
+      return null
+    }
+  }
+
+    
+
 };
 
 const mapStateToProps = ({ articles }) => {

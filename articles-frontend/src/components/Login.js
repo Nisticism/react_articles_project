@@ -15,7 +15,6 @@ const Login = ({ loginFormData, updateLoginForm, login, history }) => {
 
   const handleOnSubmit = (event) => {
     event.preventDefault();
-    console.log("loginFormData");
     login(loginFormData, history);
   };
 

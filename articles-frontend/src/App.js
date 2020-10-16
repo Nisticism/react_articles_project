@@ -29,14 +29,18 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              render={(props) => <MainContainer user={user} />}
+              render={() => <MainContainer user={user} />}
             />
             <Route
               exact
               path="/signup"
               render={(props) => <Signup history={props.history} />}
             />
-            <Route exact path="/login" component={Login} />
+            {loggedIn ? <Route
+              exact
+              path="/login"
+              render={(props) => <MainContainer user={user} />}
+            /> : <Route exact path="/login" component={Login} />}
             <Route
               exact
               path="/articles"

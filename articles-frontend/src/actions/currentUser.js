@@ -27,8 +27,12 @@ export const login = (credentials, history) => {
       },
       body: JSON.stringify(credentials),
     })
-      .then((r) => r.json())
-      .then((res) => {
+      .then((r) => {
+        if (!r.ok) {
+          throw new Error(r)
+        }
+        return r.json()})
+      .then(res => {
         if (res.error) {
           alert(res.error);
         } else {
@@ -38,7 +42,7 @@ export const login = (credentials, history) => {
           history.push("/");
         }
       })
-      .catch(console.log);
+      .catch(error => console.log(error.error));
   };
 };
 
