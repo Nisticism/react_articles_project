@@ -34,40 +34,12 @@ class Articles extends React.Component {
   componentDidMount() {
   }
 
-  // setInitialLikeScore(articles) {
-  //   console.log(articles)
-  //   console.log("in state return setter")
-  //   if (articles.length > 0) {
-  //     let articlesLength = articles.length
-  //     console.log(articlesLength)
-  //     let articlesArray = []
-  //     for (let i = 0; i < articlesLength; i ++) {
-  //       articlesArray.push(0)
-  //     }
-
-  //     return {
-  //       likeScore: articlesArray
-  //     }
-      
-  //   } else {
-  //     return null
-  //   }
-  // }
-
-  getIndexFromArticle() {
-    console.log()
-    console.log(document.parentNode)
-    //return parseInt(document.parentElement.getElementsByClassName("index").innerHTML)
-  }
-
   render() {
 
     const articles = this.props.userArticles ? this.props.userArticles : this.props.articles;
 
     if (articles.length > 0) {
     console.log(this.state)
-    //this.setState((articles) => this.setInitialLikeScore(articles));
-    //console.log(this.state)
     const articleCards =
     articles.length > 0 ? (
       articles.map((a, index) => (
@@ -78,9 +50,16 @@ class Articles extends React.Component {
           <br/>
           <button onClick={(event) => this.handleLikeClick(event)} className="LikeButton" id={index}>Like</button>
           <p>Score: {this.state.likeScore[index] ? this.state.likeScore[index] : 0}</p>
-          <div id="genreAuthor">
-            Genre: {a.attributes.genre} | Author: {a.attributes.author.username}
+
+          <div id="genre">
+            Genre: {a.attributes.genre}
           </div>
+
+          {this.props.userArticles ? null : (
+            <div id="author">
+            Author: {a.attributes.author.username}
+          </div>)
+          }
         </div>
       ))
     ) : (

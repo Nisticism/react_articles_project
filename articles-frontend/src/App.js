@@ -48,7 +48,7 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/user/articles"
+              path="/my_articles"
               component={(props) => {
                 const userArticles = articles.filter(
                   (article) =>

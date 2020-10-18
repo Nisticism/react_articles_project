@@ -89,7 +89,11 @@ a.active {
   word-wrap: break-word;
 }
 
-div#genreAuthor {
+div#genre {
+  font-size: 14px;
+}
+
+div#author {
   font-size: 14px;
 }
 

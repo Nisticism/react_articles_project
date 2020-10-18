@@ -7,7 +7,7 @@ const NavBar = ({ currentUser, loggedIn }) => {
   return (
     <div className="NavBar">
       <div className="NavItem">
-        <NavLink exact activeClassName="active" to="/user/articles">
+        <NavLink exact activeClassName="active" to="my_articles">
           <button type="button" className="NavButton">
                 My Articles
           </button>
