@@ -9,8 +9,7 @@ class Articles extends React.Component {
     console.log(props)
     
     this.state = {
-      likeScore: [],
-      indices: []
+      likeScore: []
     }
 
     this.handleLikeClick = this.handleLikeClick.bind(this)
