@@ -16,15 +16,16 @@ class Articles extends React.Component {
   }
 
   handleLikeClick(event) {
-    console.log(event.target.id)
+    //The index and id of the button should be event.target.id, which maps 1:1 on to the likeScore state, through likeList
+    //console.log(event.target.id)
     const likeList = [...this.state.likeScore]
-    let newIndex;
+    let like;
     if (likeList[event.target.id] === 1) {
-      newIndex = 0
+      like = 0
     } else {
-      newIndex = 1
+      like = 1
     }
-    likeList[event.target.id] = newIndex
+    likeList[event.target.id] = like
 
     this.setState({
       likeScore: likeList
